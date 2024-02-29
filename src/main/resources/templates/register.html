@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Registration Form</title>
+    <style>
+        body {
+            background-image: url('../static/naslovna.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .registration-form {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
+            margin-left: -500px;
+        }
+
+        .registration-form h2 {
+            text-align: center;
+        }
+
+        .form-control {
+            border-radius: 20px;
+        }
+
+        .btn-oval {
+            border-radius: 20px;
+            background-color: #000;
+            border: 1px solid #000;
+            color: #fff;
+        }
+
+        .btn-oval:hover {
+            background-color: #28A745;
+            border-color: #28A745;
+        }
+
+        .logo img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 registration-form">
+            <div class="logo mb-4">
+                <img src="../static/viber_image_2024-01-25_20-10-53-503.png" alt="Logo">
+            </div>
+            <h2 class="mb-5">Register</h2>
+            <form class="form-signin" method="post" action="/register">
+                <div class="form-group">
+                    <label for="username" class="sr-only">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="sr-only">Email</label>
+                    <input type="text" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="sr-only">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <label for="repeatedPassword" class="sr-only">Confirm Password</label>
+                    <input type="password" id="repeatedPassword" name="repeatedPassword" class="form-control" placeholder="Confirm Password" required>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="sr-only">Name</label>
+                    <input type="text" id="name" name="name" class="form-control" placeholder="Name" required autofocus>
+                </div>
+                <div class="form-group">
+                    <label for="surname" class="sr-only">Surname</label>
+                    <input type="text" id="surname" name="surname" class="form-control" placeholder="Surname" required autofocus>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" name="role" type="radio" id="ROLE_ADMIN" value="ROLE_ADMIN">
+                    <label class="form-check-label" for="ROLE_ADMIN">ROLE_ADMIN</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" name="role"  type="radio" id="ROLE_USER" value="ROLE_USER">
+                    <label class="form-check-label" for="ROLE_USER">ROLE_USER</label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block btn-oval" type="submit" style="margin-top: 15px">Sign up</button>
+            </form>
+            <a th:href="@{/login}" class="btn btn-block btn-light" style="margin-top: 15px">Already have an account? Login here!</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
