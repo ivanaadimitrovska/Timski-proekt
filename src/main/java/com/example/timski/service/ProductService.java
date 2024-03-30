@@ -1,10 +1,13 @@
 package com.example.timski.service;
 
 import com.example.timski.model.Category;
+import com.example.timski.model.Manufacturer;
 import com.example.timski.model.Product;
 import com.example.timski.model.errors.CategoryNotFound;
+import com.example.timski.model.errors.ManufacturerNotFound;
 import com.example.timski.model.errors.ProductNotFound;
 import com.example.timski.repository.CategoryRepository;
+import com.example.timski.repository.ManufacturerRepository;
 import com.example.timski.repository.ProductRepository;
 
 import org.springframework.stereotype.Service;
@@ -16,14 +19,17 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
-    //private final ManufacturerRepository memoryManufacturerRepository;
+    private final ManufacturerRepository manufacturerRepository;
 
 
 
-    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
+    public ProductService(ProductRepository productRepository, CategoryRepository categoryRepository, ManufacturerRepository manufacturerRepository) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.manufacturerRepository = manufacturerRepository;
     }
+
+
 
     public List<Product> findAll() {
         return productRepository.findAll();
@@ -39,44 +45,63 @@ public class ProductService {
         return productRepository.findByName(name);
     }
 
-
-
-    public Optional<Product> save(String name, Double price, Integer quantity, Long categoryId, Long manufacturerId) {
+    public List<Product> findByCategoryId(Long categoryId) {
         Category category = this.categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new CategoryNotFound(categoryId));
-//        Manufacturer manufacturer = this.memoryManufacturerRepository.findById(manufacturerId)
-//                .orElseThrow(() -> new ManufacturerNotFound(manufacturerId));
-
-        this.productRepository.deleteByName(name);
-        return Optional.of(this.productRepository.save(new Product(name, price, quantity, category)));
+        return productRepository.findByCategory(category);
     }
 
+    public Optional<Product> save(String name, Double price, Integer inStock, Long categoryId, Long manufacturerId, byte[] image, String ingredients) {
+        Category category = this.categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new CategoryNotFound(categoryId));
+        Manufacturer manufacturer = this.manufacturerRepository.findById(manufacturerId)
+                .orElseThrow(() -> new ManufacturerNotFound(manufacturerId));
 
+        this.productRepository.deleteByName(name);
+        return Optional.of(this.productRepository.save(new Product(name, price, inStock, category, manufacturer, image, ingredients)));
+    }
+//
+//    public Optional<Product> edit(Long id, String name, Double price, Integer inStock, Long categoryId, Long manufacturerId, byte[] image) {
+//
+//        Product product = this.productRepository.findById(id).orElseThrow(() -> new ProductNotFound(id));
+//
+//        product.setName(name);
+//        product.setPrice(price);
+//        product.setInStock(inStock);
+//        product.setImage(image);
+//
+//        Category category = this.categoryRepository.findById(categoryId)
+//                .orElseThrow(() -> new CategoryNotFound(categoryId));
+//        product.setCategory(category);
+//
+//        Manufacturer manufacturer = this.manufacturerRepository.findById(manufacturerId)
+//                .orElseThrow(() -> new ManufacturerNotFound(manufacturerId));
+//        product.setManufacturer(manufacturer);
+//
+//        this.productRepository.delete(product);
+//        //this.memoryProductRepository.deleteByName(name);
+//        return Optional.of(this.productRepository.save(new Product(name, price, inStock, category, manufacturer, image)));
+//    }
 
-
-    public Optional<Product> edit(Long id, String name, Double price, Integer inStock, Long categoryId, Long manufacturerId, byte[] image) {
-
+    public Optional<Product> edit(Long id, String name, Double price, Integer inStock, Long categoryId, Long manufacturerId, byte[] image, String ingredients) {
         Product product = this.productRepository.findById(id).orElseThrow(() -> new ProductNotFound(id));
 
         product.setName(name);
         product.setPrice(price);
         product.setInStock(inStock);
-        product.setPicture(image);
+        product.setImage(image);
+        product.setIngredients(ingredients);
 
         Category category = this.categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new CategoryNotFound(categoryId));
         product.setCategory(category);
 
-//        Manufacturer manufacturer = this.memoryManufacturerRepository.findById(manufacturerId)
-//                .orElseThrow(() -> new ManufacturerNotFound(manufacturerId));
-//        product.setManufacturer(manufacturer);
+        Manufacturer manufacturer = this.manufacturerRepository.findById(manufacturerId)
+                .orElseThrow(() -> new ManufacturerNotFound(manufacturerId));
+        product.setManufacturer(manufacturer);
 
-        this.productRepository.delete(product);
-        //this.memoryProductRepository.deleteByName(name);
-        return Optional.of(this.productRepository.save(new Product(name, price, inStock, category)));
+        return Optional.of(this.productRepository.save(product));
     }
-
-
 
     public void deleteById(Long id) {
         this.productRepository.deleteById(id);

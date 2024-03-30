@@ -1,20 +1,95 @@
-<div class="container" xmlns:th="http://www.thymeleaf.org">
-    <form class="form-signin mt-xl-5" method="post" action="/login">
-        <h2 class="form-signin-heading">Sign in</h2>
-        <p>
-            <label for="username" class="sr-only">Username</label>
-            <input type="text" id="username" name="username" class="form-control" placeholder="Username" th:required="false"
-                   autofocus="">
-        </p>
-        <p>
-            <label for="password" class="sr-only">Password</label>
-            <input type="password" id="password" name="password" class="form-control" placeholder="Password"
-                   th:required="false">
-        </p>
+<!DOCTYPE html>
 
-        <div th:text="${param.error}" class="text-danger"></div>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org ">
+<head>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+    />
 
-        <button id="submit" class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    </form>
-    <a href="/register" class="btn btn-block btn-light">Register here</a>
+    <title>HealthBox</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet">
+
+</head>
+
+<header>
+    <nav class="bg-white shadow">
+        <div class="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
+            <div class="flex h-16 justify-between ">
+                <div class="flex px-2 lg:px-0 mb-2 ">
+                    <div class="flex flex-shrink-0 items-center ">
+                        <img class="h-8 w-auto"src="data:image/png;base64,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"
+                             alt="Logo">
+                    </div>
+
+
+
+                    <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
+                        <a th:href="@{/home}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Home</a>
+                        <a th:href="@{/categories}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"> Categories </a>
+                        <a th:href="@{/product}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Products</a>
+
+
+                    </div>
+                </div>
+
+
+
+                <a  sec:authorize="isAuthenticated()"  th:href="@{/login}" class=" mb-2 inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900">Login</a>
+
+            </div>
+        </div>
+
+
+    </nav>
+</header>
+
+<body class="min-h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('https://i.ibb.co/4gHf1Dh/pexels-madison-inouye-1831234.jpg')">
+
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <img class="mx-auto h-10 w-auto" src="https://i.ibb.co/cX1S13y/viber-image-2024-01-25-20-10-53-503.png" alt=" HealthBox"  />
+        <h2 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign in to your account</h2>
+    </div>
+
+    <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form class="space-y-6" method="post" action="/login">
+            <div>
+                <label for="username" class="block text-sm font-medium leading-6 text-gray-900">Username</label>
+                <div class="mt-2">
+                    <input id="username" name="username" autocomplete="username" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+
+            <div>
+                <div class="flex items-center justify-between">
+                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Password</label>
+
+                </div>
+                <div class="mt-2">
+                    <input id="password" name="password" type="password" autocomplete="current-password" required class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Login</button>
+            </div>
+        </form>
+
+        <p class="mt-10 text-center text-sm text-gray-500">
+            Not a user?
+            <a  th:href="@{/register}" class="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">Sign up</a>
+        </p>
+    </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

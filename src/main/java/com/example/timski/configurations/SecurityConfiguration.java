@@ -15,27 +15,25 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-
-    private final JWTAuthenticationFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
-
-    public SecurityConfiguration(JWTAuthenticationFilter jwtAuthFilter, AuthenticationProvider authenticationProvider){
-        this.jwtAuthFilter = jwtAuthFilter;
-        this.authenticationProvider = authenticationProvider;
-    }
+//
+//    private final JWTAuthenticationFilter jwtAuthFilter;
+//    private final AuthenticationProvider authenticationProvider;
+//
+//    public SecurityConfiguration(JWTAuthenticationFilter jwtAuthFilter, AuthenticationProvider authenticationProvider) {
+//        this.jwtAuthFilter = jwtAuthFilter;
+//        this.authenticationProvider = authenticationProvider;
+//    }
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/", "/home", "/assets/**", "/register", "/product", "/api/**", "/login", "/static/**").permitAll()
+                        .requestMatchers("/", "/home", "/shop-cart", "/assets/**", "/register", "/product", "/api/**", "/login", "/static/**", "/product/add-form", "/product/add", "/payment", "/successfully-payment", "/payment/add", "/categories", "/product/{id}/delete", "/product/{id}/edit-form", "/product/{categoryId}", "/shop-cart/add-product/{id}", "/payment/add", "/successfully-payment").permitAll()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+                );
 
         return http.build();
     }

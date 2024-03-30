@@ -39,5 +39,6 @@ public class ShoppingCart {
     public Long getId() {
         return id;
     }
+
 }
 

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthBox</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<nav class="bg-white shadow ">
+    <div class="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
+        <div class="flex h-16 justify-between  ">
+            <div class="flex px-2 lg:px-0 mb-2 ">
+                <div class="flex flex-shrink-0 items-center">
+
+
+                    <img class="h-8 w-auto" src="data:image/png;base64,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" alt="Logo">
+                </div>
+                <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
+                    <a th:href="@{/home}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Home</a>
+                    <a th:href="@{/categories}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"> Categories </a>
+                    <a th:href="@{/product}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Products</a>
+                    <a class="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900">Cart</a>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</nav>
+
+<body class="font-sans antialiased bg-gray-100">
+<div class="bg-white">
+    <div class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
+        <h1 class="text-3xl  tracking-tight text-gray-700 sm:text-4xl" ><span th:text="${user}"></span>'s shopping cart</h1>
+
+        <div class="container mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+            <section aria-labelledby="cart-heading" class="lg:col-span-7">
+                <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
+                <ul  th:if="${produkti.size() > 0}"  role="list" class="divide-y divide-gray-200 border-b border-t border-gray-200">
+                    <!-- Your Thymeleaf logic to iterate over cart items -->
+                    <li th:each="product : ${produkti}" class="flex py-6 sm:py-10">
+                        <div class=" flex justify-between w-full bg-white rounded-lg shadow-md overflow-hidden">
+                                <img th:src="@{'data:image/jpeg;base64,'+${product.generateBase64Image()}}" alt="Image" class=" rounded-md m-3 w-40 h-40 object-cover" />
+
+                            <div class="p-4">
+                                <h3 class="text-lg text-gray-800">Title: <span  th:text="${ product.getName() }"></span></h3>
+                                <p class="text-gray-600" th:text="${product.getManufacturer() != null} ? ${'Manufacturer: '+ product.getManufacturer().getName()} : 'No Manufacturer'"></p>
+                                <p class="text-lgd text-gray-800 mt-2" th:text="${'Price: '+ product.getPrice()+' $'}"></p>
+                                <div class="mt-2">
+                                    <p class="text-gray-600" th:text="${product.getCategory() != null} ? ${' Category: ' + product.getCategory().getName()} : 'No Category'"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="summary-heading" class="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8">
+                <h2 id="summary-heading" class="text-lg font-medium text-gray-900">Order summary</h2>
+
+                <dl class="mt-6 space-y-4">
+                    <!-- Your Thymeleaf logic to display order summary -->
+                    <div class="flex items-center justify-between">
+                        <dt class="text-sm text-gray-600">Subtotal</dt>
+                        <dd id="subtotal-section" class="text-sm font-medium text-gray-900">$99.00</dd>
+                    </div>
+                    <!-- Other summary items -->
+                </dl>
+
+                <div class="mt-6">
+                    <a  sec:authorize="isAuthenticated()" th:href="@{/payment} "type="submit" class="w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">Checkout</a>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Get all elements under the class 'text-lgd' and check their text content
+        const priceElements = document.querySelectorAll('.text-lgd');
+        let subtotal = 0;
+
+        // Iterate through each price element and sum up the prices
+        priceElements.forEach(function (element) {
+            const priceText = element.textContent.trim(); // Get the text content
+            // Check if the text content contains 'Price: ' and ends with '$'
+            if (priceText.includes('Price:') && priceText.endsWith('$')) {
+                // Extract the price and add it to the subtotal
+                const priceValue = parseFloat(priceText.replace('Price: ', '').replace('$', ''));
+                subtotal += priceValue;
+            }
+        });
+
+        // Update the subtotal in the DOM
+        document.querySelectorAll('#subtotal-section').forEach(function(subtotalElement) {
+            subtotalElement.textContent = '$' + subtotal.toFixed(2);
+        });
+    });
+
+</script>
+</body>
+
+</html>

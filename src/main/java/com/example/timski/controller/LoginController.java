@@ -34,7 +34,7 @@ public class LoginController {
     @GetMapping
     public String getloginPage(Model model){
         model.addAttribute("bodyContent", "login");
-        return "master-template";
+        return "login";
     }
 
     @PostMapping
@@ -50,7 +50,15 @@ public class LoginController {
             if (user != null && passwordEncoder.matches(password, user.getPassword())) {
                 // Authentication successful
                 request.getSession().setAttribute("user", user);
-                return "redirect:/home";
+
+                // Get the role of the user
+                String role = user.getAuthorities().iterator().next().getAuthority();
+
+                // Add the role as an attribute to the model
+                model.addAttribute("role", role);
+
+                // Forward the role to the view
+                return "redirect:/home?username=" + username + "&role=" + role;
             } else {
                 // Invalid credentials
                 throw new InvalidUser();

@@ -16,13 +16,13 @@ public class HomeController {
     @GetMapping
     public String getHomePage(Model model){
         model.addAttribute("bodyContent", "home");
-        return "master-template";
+        return "home";
     }
 
     @GetMapping("/access_denied")
     public String access_denied(Model model){
         model.addAttribute("bodyContent", "access_denied");
-        return "master-template";
+        return "home";
     }
 
     @PostMapping

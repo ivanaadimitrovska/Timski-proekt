@@ -1,37 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Your Page Title</title>
-</head>
-<body style="
-background-size: cover;
-background-position: center;
-background-repeat: no-repeat;
-height: 100vh;
-margin: 0;
-display: flex;
-align-items: center;
-justify-content: center;">
-<img src="../static/naslovna.png" height="608" width="1440" alt="IVANA"/>
-<div class="welcome-text" style="font-family: cursive;
-            font-size: 5rem;
-            font-weight: bold;
-            text-align: center;
-            width: 450px;
-            justify-content: left;
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthBox</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .carousel-container {
             display: flex;
-            margin-top: 100px;
-            margin-left: -650px;">
-    Welcome to our Health Box
+            flex-wrap: wrap;
+            max-width: 80%;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .carousel-slide {
+            width: calc(20% - 20px);
+            height: 220px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<header xmlns:th="http://www.thymeleaf.org ">
+    <nav class="bg-white shadow ">
+        <div class="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
+            <div class="flex h-16 justify-between  ">
+                <div class="flex px-2 lg:px-0 mb-2 ">
+                    <div class="flex flex-shrink-0 items-center">
+
+
+                        <img class="h-8 w-auto" src="data:image/png;base64,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" alt="Logo">
+                    </div>
+                    <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
+                        <a th:href="@{/home}"class="inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900">Home</a>
+                        <a th:href="@{/categories}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"> Categories </a>
+                        <a th:href="@{/product}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Products</a>
+                        <a id="Cart" sec:authorize="isAuthenticated()" th:href="@{/shop-cart}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Cart</a>
+
+
+                    </div>
+                </div>
+
+
+                <a id="Logout"   th:href="@{/login}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Logout</a>
+                <a id="Login" sec:authorize="isAuthenticated()"  th:href="@{/login}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Login</a>
+
+            </div>
+        </div>
+
+    </nav>
+</header>
+
+<body class="min-h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('https://i.ibb.co/4gHf1Dh/pexels-madison-inouye-1831234.jpg'); opacity: 0.9;">
+<div class="container mx-auto flex flex-col md:flex-row items-center justify-center text-white py-12">
+    <div class="md:w-1/2 mx-auto mb-8 md:mb-0">
+        <img id="animatedImage" src="https://i.ibb.co/7z1B2zx/Welcome.jpg" alt="Welcome" class="w-full md:w-5/6 lg:w-4/5 mx-auto rounded-lg shadow-lg animated-image">
+    </div>
+
+    <div class="mx-auto md:w-1/2 text-center md:text-left text-black">
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">Welcome to HealthBox!</h1>
+        <p class="text-lg md:text-xl lg:text-2xl mb-8">Your destination for healthy eating habits and nutritious foods!</p>
+        <p class="text-lg md:text-xl lg:text-2xl mb-8">Browse our selection of handpicked healthy foods to support your well-being.</p>
+        <a href="/categories" class="bg-indigo-500 hover:bg-indigo-400 text-white font-bold py-2 px-4 rounded-lg transition duration-300">Shop Now</a>
+    </div>
 </div>
+<!-- Carousel of images -->
+<div class="carousel-container">
+    <div class="carousel-slide">
+        <img src="https://i.ibb.co/5jZnKs6/pexels-jana-ohajdova-11394553.jpg" alt="Image 1">
+    </div>
+    <div class="carousel-slide">
+        <img src="https://i.ibb.co/PG5KKp2/pexels-pexels-user-12974430.jpg" alt="Image 2">
+    </div>
+    <div class="carousel-slide">
+        <img src="https://i.ibb.co/QDKZ3PN/pexels-tom-fisk-8556002.jpg" alt="Image 3">
+    </div>
+    <div class="carousel-slide">
+        <img src="https://i.ibb.co/ZSfmGVN/pexels-pixabay-434295.jpg" alt="Image 4">
+    </div>
+    <div class="carousel-slide">
+        <img src="https://i.ibb.co/g3cNBVb/pexels-georgie-devlin-16369768.jpg" alt="Image 5">
+    </div>
 
+</div>
+<script>
+    // Check if user exists in local storage
+    const userExists = localStorage.getItem('username') !== null;
+    const role = localStorage.getItem('role') ===  'ROLE_USER';
 
+    // Function to toggle visibility of the Cart link
+    function toggleCartLinkVisibility() {
+        const cartLink = document.getElementById('Cart');
+        if (userExists && role) {
+            cartLink.style.display = 'inline-flex'; // Show the link
+        } else {
+            cartLink.style.display = 'none'; // Hide the link
+        }
+    }
+
+    // Call the function on page load
+    window.onload = function() {
+        toggleCartLinkVisibility();
+    };
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Check if username exists in local storage
+        var username = localStorage.getItem('username');
+        if (username) {
+            // Hide the login link if username exists
+            $('#Login').hide();
+        }
+    });
+</script>
+<script>
+    // Function to clear local storage and reload the page
+    function logout() {
+        // Clear local storage
+        localStorage.clear();
+        // Redirect to the login page
+        window.location.href = "/login";
+    }
+
+    // Add click event listener to the logout link
+    document.getElementById("Logout").addEventListener("click", logout);
+</script>
+<script>document.addEventListener("DOMContentLoaded", function () {
+
+    // Check if username exists in local storage
+    const username = localStorage.getItem('username');
+
+    // Get the logout link element
+    const logoutLink = document.getElementById('Logout');
+
+    // If username does not exist, hide the logout link
+    if (!username) {
+        logoutLink.style.display = 'none';
+    }
+});
+    $(document).ready(function() {
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        };
+
+        // Get username and role from URL parameters
+        var username = getUrlParameter('username');
+        var role = getUrlParameter('role');
+
+        // Check if username and role are not empty
+        if (username !== '' && role !== '' && localStorage.getItem('username') !== username && localStorage.getItem('role') !== role) {
+            // Store username and role in local storage
+            localStorage.setItem('username', username);
+            localStorage.setItem('role', role);
+            window.location.reload();
+
+        }
+    });
+</script>
 </body>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </html>
+

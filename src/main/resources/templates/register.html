@@ -1,108 +1,108 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title>Registration Form</title>
-    <style>
-        body {
-            background-image: url('../static/naslovna.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            height: 100vh;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthBox</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@^2.0/dist/tailwind.min.css" rel="stylesheet">
 
-        .registration-form {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 600px;
-            margin-left: -500px;
-        }
-
-        .registration-form h2 {
-            text-align: center;
-        }
-
-        .form-control {
-            border-radius: 20px;
-        }
-
-        .btn-oval {
-            border-radius: 20px;
-            background-color: #000;
-            border: 1px solid #000;
-            color: #fff;
-        }
-
-        .btn-oval:hover {
-            background-color: #28A745;
-            border-color: #28A745;
-        }
-
-        .logo img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
 </head>
-<body>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8 registration-form">
-            <div class="logo mb-4">
-                <img src="../static/viber_image_2024-01-25_20-10-53-503.png" alt="Logo">
+
+
+<header>
+    <nav class="bg-white shadow">
+        <div class="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
+            <div class="flex h-16 justify-between ">
+                <div class="flex px-2 lg:px-0 mb-2 ">
+                    <div class="flex flex-shrink-0 items-center ">
+                        <img class="h-8 w-auto"src="data:image/png;base64,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"
+                             alt="Logo">
+                    </div>
+
+
+
+                    <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
+                        <a th:href="@{/home}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Home</a>
+                        <a th:href="@{/categories}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"> Categories </a>
+                        <a th:href="@{/product}" class="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700">Products</a>
+
+
+                    </div>
+                </div>
+
+
+
+
+                    <div class="ml-auto flex">
+                        <a sec:authorize="isAuthenticated()" th:href="@{/register}" class="mb-2 inline-flex items-center border-b-2 border-indigo-500 px-1 pt-1 text-sm font-medium text-gray-900">Sign up</a>
+                    </div>
+
+
+
             </div>
-            <h2 class="mb-5">Register</h2>
-            <form class="form-signin" method="post" action="/register">
-                <div class="form-group">
-                    <label for="username" class="sr-only">Username</label>
-                    <input type="text" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
-                </div>
-                <div class="form-group">
-                    <label for="email" class="sr-only">Email</label>
-                    <input type="text" id="email" name="email" class="form-control" placeholder="Email" required autofocus>
-                </div>
-                <div class="form-group">
-                    <label for="password" class="sr-only">Password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-                </div>
-                <div class="form-group">
-                    <label for="repeatedPassword" class="sr-only">Confirm Password</label>
-                    <input type="password" id="repeatedPassword" name="repeatedPassword" class="form-control" placeholder="Confirm Password" required>
-                </div>
-                <div class="form-group">
-                    <label for="name" class="sr-only">Name</label>
-                    <input type="text" id="name" name="name" class="form-control" placeholder="Name" required autofocus>
-                </div>
-                <div class="form-group">
-                    <label for="surname" class="sr-only">Surname</label>
-                    <input type="text" id="surname" name="surname" class="form-control" placeholder="Surname" required autofocus>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" name="role" type="radio" id="ROLE_ADMIN" value="ROLE_ADMIN">
-                    <label class="form-check-label" for="ROLE_ADMIN">ROLE_ADMIN</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" name="role"  type="radio" id="ROLE_USER" value="ROLE_USER">
-                    <label class="form-check-label" for="ROLE_USER">ROLE_USER</label>
-                </div>
-                <button class="btn btn-lg btn-primary btn-block btn-oval" type="submit" style="margin-top: 15px">Sign up</button>
-            </form>
-            <a th:href="@{/login}" class="btn btn-block btn-light" style="margin-top: 15px">Already have an account? Login here!</a>
         </div>
+
+
+    </nav>
+</header>
+<body class="bg-cover bg-center bg-no-repeat" style="background-image: url('https://i.ibb.co/4gHf1Dh/pexels-madison-inouye-1831234.jpg')">
+<div class="mt-7 flex justify-center items-center">
+    <div class="w-full max-w-lg bg-white bg-opacity-90 p-6 rounded-lg shadow-md">
+
+        <h2 class=" text-indigo-500 text-2xl font-semibold  mb-3">Register</h2>
+        <form class="space-y-3" method="post" action="/register">
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                <input type="text" id="username" name="username" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-3 px-4" required autofocus>
+            </div>
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="text" id="email" name="email" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-3 px-4" required autofocus>
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password" name="password" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-3 px-4" required>
+            </div>
+            <div>
+                <label for="repeatedPassword" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                <input type="password" id="repeatedPassword" name="repeatedPassword" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-3 px-4" required>
+            </div>
+            <div>
+                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                <input type="text" id="name" name="name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-3 px-4" required autofocus>
+            </div>
+            <div>
+                <label for="surname" class="block text-sm font-medium text-gray-700">Surname</label>
+                <input type="text" id="surname" name="surname" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md py-3 px-4" required autofocus>
+            </div>
+            <div>
+                <span class="block text-sm font-medium text-gray-700">Role</span>
+                <div class="mt-1">
+                    <div class="flex items-center">
+                        <input id="role_admin" name="role" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" value="ROLE_ADMIN">
+                        <label for="role_admin" class="ml-3 block text-sm font-medium text-gray-700">ROLE_ADMIN</label>
+                    </div>
+                    <div class="flex items-center mt-2">
+                        <input id="role_user" name="role" type="radio" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" value="ROLE_USER">
+                        <label for="role_user" class="ml-3 block text-sm font-medium text-gray-700">ROLE_USER</label>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Sign up</button>
+            </div>
+        </form>
+        <a href="/login" class="block text-center text-sm text-gray-600 mt-5 text-indigo-600">Already have an account? Login here!</a>
     </div>
 </div>
+</body>
+
+
+
+</html>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
